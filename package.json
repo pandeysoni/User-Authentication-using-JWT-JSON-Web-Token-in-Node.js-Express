@@ -1,0 +1,34 @@
+{
+  "name": "node-express-boilerplate",
+  "description": "node-boilerplate",
+  "version": "0.1.0",
+  "main": "server",
+  "engines": {
+    "node": ">=0.10.22"
+  },
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "dependencies": {
+    "async": "^1.4.2",
+    "aws-sdk": "^2.2.9",
+    "body-parser": "^1.13.3",
+    "boom": "^2.6.1",
+    "cookie-parser": "~1.0.1",
+    "express": "^4.10.6",
+    "express-session": "~1.0.2",
+    "jsonwebtoken": "^7.0.0",
+    "mongoose": "3.8.x",
+    "mongoose-auto-increment": "^5.0.1",
+    "nodemailer": "^0.7.1",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "request": "^2.44.0",
+    "socket.io": "~1.3.7",
+    "xoauth2": "^1.1.0"
+  },
+  "author": {
+    "name": "sonipandey",
+    "email": "sonipandey.71@gmail.com"
+  }
+}

@@ -1,0 +1,18 @@
+.growl {
+    position: fixed;
+    top: 10px;
+    float: right;
+    width: 100%;
+    z-index: 9999;
+}
+.growl-item.ng-enter {
+    -webkit-animation: bounceIn 0.5s;
+    animation: bounceIn 0.5s;
+}
+.growl-item.ng-leave {
+    -webkit-animation: bounceOut 0.5s;
+    animation: bounceOut 0.5s;
+}
+.buttons {
+    margin: 220px 4px;
+}

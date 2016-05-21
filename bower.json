@@ -1,0 +1,29 @@
+{
+  "name": "login",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.3.x",
+    "angular-route": "~1.2.x",
+    "angular-resource": "~1.2.x",
+    "jasny-bootstrap": "~3.1.3",
+    "angular-ui-bootstrap": "~0.12.0",
+    "angular-bootstrap": "0.12.1",
+    "angular-ui-router": "~0.2.15",
+    "components-font-awesome": "~4.4.0",
+    "bootstrap": "~3.3.2",
+    "angular-growl": "~0.4.0",
+    "ng-file-upload-shim": "~9.0.8",
+    "underscore": "~1.8.3",
+    "moment": "~2.10.6",
+    "seiyria-bootstrap-slider": "~5.2.4",
+    "angular-sanitize": "~1.4.7",
+    "angular-scroll-glue": "~2.0.6"
+  },
+  "resolutions": {
+    "angular": "^1.3.x"
+  }
+}

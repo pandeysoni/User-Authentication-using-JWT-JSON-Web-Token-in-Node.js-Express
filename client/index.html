@@ -1,0 +1,54 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html >
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <base href="/">
+    <title>NodeApp</title>
+    <!-- SCROLLS -->
+     <style>
+        .dialog-open {
+          display: block;
+        }
+        .dialog-close {
+          display: none;
+        }
+      </style>
+        <link rel="stylesheet" href="bower_components/angular-growl/build/angular-growl.min.css">
+         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- SPELLS -->
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body>
+   <div data-ui-view >
+       
+   </div>
+    <div data-growl=""></div>
+        <!-- HEADER AND TODO COUNT -->
+      
+
+        <!-- TODO LIST -->
+      
+
+        <!-- FORM TO CREATE TODOS -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script> 
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-growl/build/angular-growl.js"></script>
+    <script src='bower_components/angular-bootstrap/ui-bootstrap-tpls.js'></script>
+
+    <script src="config.js"></script>
+    <script src="application.js"></script>  
+
+    <script src="modules/app/app.client.module.js"></script>
+    <script src="modules/app/config/app.client.routes.js"></script>
+    <script src="modules/app/controllers/app.client.controller.js"></script>
+    <script src="modules/app/services/app.client.services.js"></script>
+
+</body>
+</html>
