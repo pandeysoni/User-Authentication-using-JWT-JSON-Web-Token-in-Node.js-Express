@@ -7,12 +7,10 @@ const privateKey = Config.key.privateKey
 
 exports.create = function (req, res){
 	req.body.password = Common.encrypt(req.body.password);
-	req.body.scope = "Customer";
 	User.saveUser(req.body, function(err, user) {
 	    if (!err) {
 	        var tokenData = {
 	            username: user.username,
-	            scope: [user.scope],
 	            id: user._id
 	        }
 	        Common.sentMailVerificationLink(user,Jwt.sign(tokenData, privateKey));
@@ -41,12 +39,10 @@ exports.login = function (req, res){
                 else{	
 	                var tokenData = {
 	                    username: user.username,
-	                    scope: [user.scope],
 	                    id: user._id
 	                };
 	                var result = {
 	                    username: user.username,
-	                    scope: user.scope,
 	                    token: Jwt.sign(tokenData, privateKey)
 	                };
 
@@ -80,7 +76,6 @@ exports.forgotPassword = function (req, res){
                 else{
 	                var tokenData = {
 	                    userName: user.userName,
-	                    scope: [user.scope],
 	                    id: user._id
 	                };
 	                Common.sentMailVerificationLink(user,Jwt.sign(tokenData, privateKey));
