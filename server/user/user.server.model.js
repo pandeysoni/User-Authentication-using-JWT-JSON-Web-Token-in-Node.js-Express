@@ -29,15 +29,7 @@ var User = new Schema({
         required: true
     },
 
-    /** 
-    Scope. It can only contain string, is required field, and should have value from enum array.
-  */
-    scope: {
-        type: String,
-        enum: ['Customer'],
-        required: true
-    },
-
+ 
     /** 
       propertyId. It can only contain string.
     */
