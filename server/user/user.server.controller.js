@@ -1,9 +1,9 @@
-var Boom = require('boom'),
-    Common = require('../config/common'),
-    Config = require('../config/config'),
-    Jwt = require('jsonwebtoken'),
-    User = require('./user.server.model').User,
-	privateKey = Config.key.privateKey;
+const Boom = require('boom')
+const Common = require('../config/common')
+const Config = require('../config/config')
+const Jwt = require('jsonwebtoken')
+const User = require('./user.server.model').User
+const privateKey = Config.key.privateKey
 
 exports.create = function (req, res){
 	req.body.password = Common.encrypt(req.body.password);
