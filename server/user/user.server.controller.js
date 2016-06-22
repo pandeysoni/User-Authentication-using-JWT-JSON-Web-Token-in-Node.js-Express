@@ -4,6 +4,7 @@ const Config = require('../config/config')
 const Jwt = require('jsonwebtoken')
 const User = require('./user.server.model').User
 const privateKey = Config.key.privateKey
+const randomstring = require("randomstring")
 
 exports.create = function (req, res){
 	req.body.password = Common.encrypt(req.body.password);
@@ -62,7 +63,7 @@ exports.login = function (req, res){
     })
 }
 
-exports.forgotPassword = function (req, res){
+exports.resendVerificationEmail = function (req, res){
 	User.findUser(req.body.username, function(err, user) {
         if (!err) {
             if (user === null) {
@@ -93,18 +94,18 @@ exports.forgotPassword = function (req, res){
 
 }
 
-exports.resendVerificationEmail = function (req, res){
- 	User.findUser(req.body.username, function(err, user) {
+exports.forgotPassword = function (req, res){
+ 	var random = Common.encrypt(randomstring.generate({length: 5, charset: 'alphabetic'}));
+    User.findUserUpdate({username: req.body.username}, {password: random}, function(err, user) {
         if (!err) {
             if (user === null){
-            	return res.send(Boom.forbidden("invalid username"));
+                return res.send(Boom.forbidden("invalid username"));
             }
             else{
-	            Common.sentMailForgotPassword(user);
-	            return res.send("password is send to registered email id");
+                Common.sentMailForgotPassword(user);
+                return res.send("password is send to registered email id");
             }
         } else {       
-            console.error(err);
             return res.send(Boom.badImplementation(err));
          }
     })

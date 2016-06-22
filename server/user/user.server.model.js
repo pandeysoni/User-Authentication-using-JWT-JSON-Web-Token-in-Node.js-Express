@@ -50,7 +50,9 @@ User.statics = {
     saveUser: function(requestData, callback) {
         this.create(requestData, callback);
     },
-
+    findUserUpdate: function(query, user, callback) {
+        this.findOneAndUpdate(query, user, callback);
+    },
     updateUser: function(user, callback) {
         user.save(callback);
     },
