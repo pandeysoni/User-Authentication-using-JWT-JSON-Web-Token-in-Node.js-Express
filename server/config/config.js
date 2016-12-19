@@ -14,8 +14,8 @@ module.exports = {
         tokenExpiry: 1 * 30 * 1000 * 60 //1 hour
     },
     email: {
-        username: "roy.dajshi@gmail.com",
-        password: "dajshi123",
+        username: "*****@gmail.com",
+        password: "******",
         accountName: "gmail",
         verifyEmailUrl: "verifyEmail"
     }
