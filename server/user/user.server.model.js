@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment'),
     db = require('../config/db').db;
@@ -57,8 +57,8 @@ User.statics = {
         user.save(callback);
     },
 
-    findUser: function(username, callback) {
-        this.findOne({username: username}, callback);
+    findUser: function(query, callback) {
+        this.findOne(query, callback);
     },
 
     findUserByIdAndUserName: function(id, username, callback) {

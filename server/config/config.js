@@ -6,17 +6,16 @@ module.exports = {
     database: {
         host: 'localhost',
         port: 27017,
-        db: 'tockenlogin',
-        url: 'mongodb://127.0.0.1:27017/tockenlogin'
+        db: 'login',
+        url: 'mongodb://127.0.0.1:27017/login'
     },
     key: {
         privateKey: '37LvDSm4XvjYOh9Y',
         tokenExpiry: 1 * 30 * 1000 * 60 //1 hour
     },
     email: {
-        username: "*****@gmail.com",
-        password: "******",
-        accountName: "gmail",
+        username: "****",
+        password: "***",
         verifyEmailUrl: "verifyEmail"
     }
 };
