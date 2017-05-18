@@ -8,24 +8,49 @@ const async = require('async')
 
 exports.create = (req, res) => {
 	req.body.password = Common.encrypt(req.body.password);
-	User.saveUser(req.body, (err, user) => {
-	    if (!err) {
-	        let tokenData = {
-	            username: user.username,
-	            id: user._id
-	        }
-	        Common.sentMailVerificationLink(user, Jwt.sign(tokenData, privateKey), (error, result) => {
-                if(!error) return res.json({message: `Please confirm your email id by clicking on link in email`});
-                else return res.status(500).send(`Oh uh, something went wrong`);
-            });
-	        
-	    } else {
-            if(err.name == 'ValidationError'){
-                 return res.status(409).send(`please provide another user email`);
+    async.waterfall([
+        function(callback) {
+           User.saveUser(req.body, (err, user) => {
+                if (!err) {
+                   callback(null, user)
+                } else {
+                    if(err.name == 'ValidationError'){
+                        let error = {}
+                        error.statusCode = 409
+                        error.message = `please provide another user email`
+                        callback(error, null);
+                    }
+                    else {
+                        let error = {}
+                        error.statusCode = 500
+                        error.message = `Oh uh, something went wrong`
+                        callback(error, null);// HTTP 403
+                    }
+                }
+            })
+        },
+        function(user, callback) {
+            let tokenData = {
+                username: user.username,
+                id: user._id
             }
-	        else return res.status(500).send(`Oh uh, something went wrong`);// HTTP 403
-	    }
-	})
+             Common.sentMailVerificationLink(user, Jwt.sign(tokenData, privateKey), (error, result) => {
+                if(!error) callback(error, null)
+                else callback(null, 'done')
+            });
+        },
+    ],
+    // optional callback
+    function(err, results) {
+        if(err){
+            if(err.statusCode) return res.status(err.statusCode).send(err.message);
+            else return res.status(500).send(`Oh uh, something went wrong`);
+        }
+        else{
+            return res.json({message: `Please confirm your email id by clicking on link in email`});
+        }
+    });
+	
 }
 
 exports.login = (req, res) => {
@@ -61,26 +86,52 @@ exports.login = (req, res) => {
 }
 
 exports.forgotPassword = (req, res) => {
-    User.findUser({username: req.body.username}, (err, user) => {
-        if (!err) {
-            if (user === null){
-                return res.status(422).send(`Email not recognised`);
-            }
-            else{
-                let tokenData = {
-                    username: user.username,
-                    id: user._id
+    async.waterfall([
+        function(callback) {
+           User.findUser({username: req.body.username}, (err, user) => {
+            if (!err) {
+                if (user === null){
+                    let error = {}
+                    error.statusCode = 422
+                    error.message = `please provide another user email`
+                    callback(error, null);
                 }
-                Common.sentMailForgotPassword(user, Jwt.sign(tokenData, privateKey), (error, result) => {
-                    if(!error) return res.json({message: `reset password link sent to your mail.`});
-                    return res.status(500).send(`Oh uh, something went wrong`);
-                });   
+                else{
+                    callback(null, user) 
+                }
+            }       
+            else {
+                let error = {}
+                error.statusCode = 500
+                error.message = `Oh uh, something went wrong`
+                callback(error, null) 
+            }    
+        })
+        },
+        function(user, callback) {
+            let tokenData = {
+                username: user.username,
+                id: user._id
             }
-        }       
-        else {
-            return res.status(500).send(`Oh uh, something went wrong`) 
-        }    
-    })
+            Common.sentMailForgotPassword(user, Jwt.sign(tokenData, privateKey), (error, result) => {
+                if(!error) callback(null, 'success')
+                else {
+                    let error = {}
+                    error.statusCode = 500
+                    error.message = `Oh uh, something went wrong`
+                    callback(error, null) 
+                }
+            });  
+        },
+    ],
+    // optional callback
+    function(err, results) {
+        if(err) {
+            if(err.statusCode) return res.status(err.statusCode).send(err.message);
+            else return res.status(500).send(`Oh uh, something went wrong`);    
+        }
+        else return res.json({message: `reset password link sent to your mail.`});
+    });
 }
 
 exports.newPassword = (req, res) => {
