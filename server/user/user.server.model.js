@@ -2,6 +2,7 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment'),
     db = require('../config/db').db;
+    uniqueValidator = require('mongoose-unique-validator');
 
 autoIncrement.initialize(db);
 
@@ -45,6 +46,7 @@ User.plugin(autoIncrement.plugin, {
     model: 'user',
     field: '_id'
 });
+User.plugin(uniqueValidator);
 
 User.statics = {
     saveUser: function(requestData, callback) {

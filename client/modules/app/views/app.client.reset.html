@@ -1,0 +1,28 @@
+<div data-ng-controller="AppController">
+	 <div class="row">
+      <h3 class="col-sm-3 col-sm-offset-5 center">Set New Password</h3>
+    </div>
+	<form data-ng-submit="reset(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
+    <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
+
+      <div class="form-group">
+        <label for="newPassword" class="col-sm-2 col-sm-offset-3 control-label">New Password</label>
+        <div class="col-sm-3">
+          <input id="newPassword" class="form-control" data-ng-model="user.newPassword" type="password" placeholder="Name" name="name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmNew" class="col-sm-2 col-sm-offset-3 control-label">Confirm New Password</label>
+        <div class="col-sm-3">
+          <input id="confirmNew" class="form-control"  data-ng-model="user.confirmNew" type="password" placeholder="Password" name="password" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+          <button class="btn btn-primary" type="submit">Reset New Password</button>
+        </div>
+      </div>
+    </form>
+</div>

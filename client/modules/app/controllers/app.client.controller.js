@@ -1,44 +1,70 @@
 'use strict';
 
 
-angular.module('app').controller('AppController', ['$scope', 'userService', 'growl', '$state',
-	function($scope, userService, growl, $state) {
-		$scope.signup = function(data, form){
-			userService.save({url: 'user'}, data).$promise.then(function(result){ 
-				if(result.output.payload.message === "Please confirm your email id by clicking on link in email")
-				{
-					growl.addSuccessMessage(result.output.payload.message);
-				}
-				else{
-					growl.addErrorMessage(result.output.payload.message);
-				}
-				}).catch(function(error){
-	                growl.addErrorMessage('oops something went wrong');
+angular.module('app').controller('AppController', ['$scope', 'userService', 'growl', '$state', '$stateParams',
+	($scope, userService, growl, $state, $stateParams) => {
+		$scope.signup = (data, form) => {
+			userService.save({url: 'user'}, data).$promise.then((result) => { 
+					growl.success(result.message, {ttl: 5000})
+				}).catch((error) => {
+	                growl.error(error.data, {ttl: 5000});
 			})
 		}
 
-		$scope.login = function(data, form){
-			userService.save({url: 'login'}, data).$promise.then(function(result){ 
-				console.log(result);
+		$scope.login = (data, form) => {
+			userService.save({url: 'login'}, data).$promise.then((result) => { 
+				console.log(result.username)
 				if(result.username){
 					$state.go('login');
 				}
 				else{
-					growl.addSuccessMessage(result.output.payload.message);
+					growl.error(`Oh uh, something went wrong`);
 				}
-				}).catch(function(error){
-	                growl.addErrorMessage('oops something went wrong');
+				}).catch((error) => {
+	                growl.error(error.data, {ttl: 5000});
 			})
 		}
 
-		$scope.goToSignUp = function(){
+		$scope.forgot = (data, form) => {
+			userService.save({url: 'forgot'}, data).$promise.then((result) => { 
+					growl.success(result.message, {ttl: 5000})
+				}).catch((error) => {
+	                growl.error(error.data, {ttl: 5000});
+			})
+		}
+
+		$scope.reset = (data, form) => {
+			data.token = $stateParams.token
+			userService.save({url: 'reset'}, data).$promise.then((result) => { 
+					growl.success(result.message, {ttl: 5000})
+					$state.go('home')
+				}).catch((error) => {
+	                growl.error(error.data, {ttl: 5000});
+			})
+		}
+		$scope.goToSignUp = () => {
 			$scope.signupDiv = true;
+			$scope.resetDiv = false;
 		}
-		$scope.goToSignIn = function(){
+		$scope.goToSignIn = () => {
 			$scope.signupDiv = false;
+			$scope.resetDiv = false;
 		}
-		$scope.load = function(){
+		$scope.goToForgotPassword = () => {
+			$scope.resetDiv = true;
+		}
+		$scope.load = () => {
 			$scope.signupDiv = false;
+			$scope.resetDiv = false;
+			if($state.$current.name == 'verify'){
+				var data = {token: $stateParams.token}
+				userService.save({url: 'verifyLink'}, data).$promise.then((result) => { 
+					growl.success(result.message, {ttl: 5000})
+					$state.go('home')
+				}).catch((error) => {
+	                growl.error(error.data, {ttl: 5000});
+			})
+			}
 		}
 		$scope.load();
 	}

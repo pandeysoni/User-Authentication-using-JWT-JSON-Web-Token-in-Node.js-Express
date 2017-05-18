@@ -13,8 +13,16 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider',
 			templateUrl: 'modules/app/views/app.client.home.html'
 		})
 		.state('login', {
-			url: '/login',
+			url: '/login-page',
 			templateUrl: 'modules/app/views/app.client.login.html'
+		})
+		.state('reset', {
+			url: '/reset/:token',
+			templateUrl: 'modules/app/views/app.client.reset.html'
+		})
+		.state('verify', {
+			url: '/verifyEmail/:token',
+			templateUrl: 'modules/app/views/app.client.home.html'
 		})
 	}
 ]);

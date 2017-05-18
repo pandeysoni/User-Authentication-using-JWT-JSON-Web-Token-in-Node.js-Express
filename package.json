@@ -6,16 +6,19 @@
   "engines": {
     "node": ">=6.9.0"
   },
-  "scripts": {},
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "dependencies": {
     "body-parser": "^1.13.3",
     "cookie-parser": "~1.0.1",
     "express": "^4.10.6",
     "jsonwebtoken": "^7.0.0",
-    "mongoose": "4.1.10",
+    "mongoose": ">=4.7.3",
     "mongoose-auto-increment": "^5.0.1",
-    "nodemailer": "^0.7.1",
-    "randomstring": "^1.1.5"
+    "mongoose-unique-validator": "^1.0.5",
+    "morgan": "^1.8.1",
+    "nodemailer": "^0.7.1"
   },
   "author": {
     "name": "sonipandey",

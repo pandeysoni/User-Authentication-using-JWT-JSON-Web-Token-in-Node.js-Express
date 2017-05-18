@@ -1,68 +1,111 @@
 <div data-ng-controller="AppController">
-  <div ng-show="!signupDiv"><div class="row">
-    <h3 class="col-sm-2 col-sm-offset-5 center">User Login</h3>
-  </div>
- <form data-ng-submit="login(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
-  <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
+  <div ng-show="!signupDiv && !resetDiv">
+    <div class="row">
+      <h3 class="col-sm-2 col-sm-offset-5 center">User Login</h3>
+    </div>
+   <form data-ng-submit="login(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
+    <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
 
-  <div class="form-group">
-    <label for="email" class="col-sm-2 col-sm-offset-3 control-label">Email</label>
-    <div class="col-sm-3">
-      <input id="email" class="form-control" data-ng-model="user.username" type="text" placeholder="Name" name="name" required>
-    </div>
-  </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-2 col-sm-offset-3 control-label">Email</label>
+        <div class="col-sm-3">
+          <input id="email" class="form-control" data-ng-model="user.username" type="text" placeholder="Name" name="name" required>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <label for="password" class="col-sm-2 col-sm-offset-3 control-label">Password</label>
-    <div class="col-sm-3">
-      <input id="password" class="form-control"  data-ng-model="user.password" type="password" placeholder="Password" name="password" required>
-    </div>
-  </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 col-sm-offset-3 control-label">Password</label>
+        <div class="col-sm-3">
+          <input id="password" class="form-control"  data-ng-model="user.password" type="password" placeholder="Password" name="password" required>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <div class="col-sm-2 col-sm-offset-5">
-      <button class="btn btn-primary" type="submit">Login</button>
+      <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+          <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToSignUp()" href="">Click Here to Register New User</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToForgotPassword()" href="">Forgot Password</a>
+      </div>
     </div>
   </div>
-</form>
-  <div class="form-group">
-    <div class="col-sm-2 col-sm-offset-5">
-      <a ng-click="goToSignUp()">Click Here to Register New User</a>
+  <div ng-show="signupDiv && !resetDiv">
+    <div class="row">
+      <h3 class="col-sm-2 col-sm-offset-5 center">User Signup</h3>
     </div>
-  </div>
-</div>
-<div ng-show="signupDiv">
-<div class="row">
-  <h3 class="col-sm-2 col-sm-offset-5 center">User Signup</h3>
-</div>
-<form data-ng-submit="signup(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
-  <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
+    <form data-ng-submit="signup(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
+      <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
 
-  
-  <div class="form-group">
-    <label for="email" class="col-sm-2 col-sm-offset-3 control-label">Email</label>
-    <div class="col-sm-3">
-      <input id="email" class="form-control" data-ng-model="user.username" type="email" placeholder="Email" name="email" required>
-    </div>
-  </div>
+      
+      <div class="form-group">
+        <label for="email" class="col-sm-2 col-sm-offset-3 control-label">Email</label>
+        <div class="col-sm-3">
+          <input id="email" class="form-control" data-ng-model="user.username" type="email" placeholder="Email" name="email" required>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <label for="password" class="col-sm-2 col-sm-offset-3 control-label">Password</label>
-    <div class="col-sm-3">
-      <input id="password" class="form-control"  data-ng-model="user.password" type="password" placeholder="Password" name="password" required>
-    </div>
-  </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 col-sm-offset-3 control-label">Password</label>
+        <div class="col-sm-3">
+          <input id="password" class="form-control"  data-ng-model="user.password" type="password" placeholder="Password" name="password" required>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <div class="col-sm-2 col-sm-offset-5">
-      <button class="btn btn-primary" type="submit">Sign up</button>
+      <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+          <button class="btn btn-primary" type="submit">Sign up</button>
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToSignIn()" href="">Go to Login Panel</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToForgotPassword()" href="">Forgot Password</a>
+      </div>
     </div>
   </div>
-</form>
-<div class="form-group">
-    <div class="col-sm-2 col-sm-offset-5">
-      <a ng-click="goToSignIn()">Go to Login Panel</a>
+  <div ng-show="resetDiv">
+    <div class="row">
+      <h3 class="col-sm-2 col-sm-offset-5 center">Generate New Password</h3>
+    </div>
+    <form data-ng-submit="forgot(user, loginForm)" name="loginForm" novalidate class="form-horizontal">
+      <!-- <input type="hidden" name="_csrf" value="{{ csrf_token }}"> -->
+
+      
+      <div class="form-group">
+        <label for="email" class="col-sm-2 col-sm-offset-3 control-label">Email</label>
+        <div class="col-sm-3">
+          <input id="email" class="form-control" data-ng-model="user.username" type="email" placeholder="Email" name="email" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-5">
+          <button class="btn btn-primary" type="submit">Forgot Password</button>
+        </div>
+      </div>
+    </form>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToSignIn()" href="">Go to Login Panel</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-5">
+        <a ng-click="goToSignUp()" href="">Click Here to Register New User</a>
+      </div>
     </div>
   </div>
-</div>
 </div>

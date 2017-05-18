@@ -33,9 +33,11 @@ exports.sentMailVerificationLink = (user, token, callback) => {
     });
 };
 
-exports.sentMailForgotPassword = (user, callback) => {
+exports.sentMailForgotPassword = (user, token, callback) => {
+    var textLink = "http://"+Config.server.host+":"+ Config.server.port+"/"+Config.email.resetEmailUrl+"/"+token;
     var from = `Pyrite Team<${Config.email.username}>`;
-    var mailbody = `<p>Your Account Credential</p><p>username : ${user.username} , password : ${decrypt(user.password)}</p>`
+    var mailbody = `<p>Please reset your password by clicking on the link below.<br/><a href=${textLink.toString()}
+    >Reset Password Link</a></p>`
     mail(from, user.username , `Account New password`, mailbody, function(error, success){
         callback(error, success)
     });
@@ -43,7 +45,6 @@ exports.sentMailForgotPassword = (user, callback) => {
 
 
 function decrypt(password){
-    console.log(typeof password)
     var decipher = crypto.createDecipher(algorithm, privateKey);
     var dec = decipher.update(password, 'hex', 'utf8');
     dec += decipher.final('utf8');
@@ -51,7 +52,7 @@ function decrypt(password){
 }
 function encrypt(password){
     var cipher = crypto.createCipher(algorithm, privateKey);
-    var crypted = cipher.update(password, 'utf8', 'hex');
+    var crypted = cipher.update(password.toString(), 'utf8', 'hex');
     crypted += cipher.final('hex');
     return crypted;
 }

@@ -5,7 +5,8 @@ angular.module('app').factory('userService', ['$resource', function($resource) {
 	return $resource(':url/:id', {},
 		{
 			'getArray': { isArray: true },
-			'save': { method: 'POST' }
+			'save': { method: 'POST' },
+			'get': { method: 'GET' }
 		});
 },
 ]);

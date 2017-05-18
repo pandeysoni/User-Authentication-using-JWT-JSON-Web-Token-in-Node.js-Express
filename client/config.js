@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'login';
-	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'ui.bootstrap', 'angular-growl'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ui.router', 'angular-growl'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
